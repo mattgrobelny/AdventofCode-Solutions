@@ -17,6 +17,7 @@ start = [0, 0]
 # start orientation (North)
 cur_ori = 0
 dir_addition = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+cord_list = [[0, 0]]
 
 for direction in adventofcode_day1:
     # pull of data from string
@@ -26,14 +27,38 @@ for direction in adventofcode_day1:
         cur_ori += 1
         add_dir = dir_addition[cur_ori % 4]  # find orientation rap around in list with %
         # update walking cordinates based on direction and distance
-        start = [start[0] + add_dir[0] * walk_val, start[1] + add_dir[1] * walk_val]
+        for i in range(walk_val):
+            start = [start[0] + add_dir[0], start[1] + add_dir[1]]
+            cord_list.append(start)
+
     else:
         # repeat for "L"
         cur_ori -= 1
         add_dir = dir_addition[cur_ori % 4]
-        start = [start[0] + add_dir[0] * walk_val, start[1] + add_dir[1] * walk_val]
+        for i in range(walk_val):
+            start = [start[0] + add_dir[0], start[1] + add_dir[1]]
+            cord_list.append(start)
+    # end location
     end = start
+
 
 # shortest path (number of blocks)
 distance = end[0] + end[1]
-print distance
+
+print "distance:", distance
+
+# Part 2
+# Determine which point was visted twice
+check_list = []
+first_twice = 0
+for cord in cord_list:
+    if cord not in check_list:
+        check_list.append(cord)
+    else:
+        first_twice = cord
+        break
+
+print "first_twice:", first_twice
+
+distance_2 = abs(first_twice[0]) + abs(first_twice[1])
+print "", distance_2
