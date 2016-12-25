@@ -9,12 +9,9 @@ import numpy
 inputfile = "./day2_input.txt"
 fh = open(inputfile, 'r')
 
-input_text1 = ""
-for line in fh:
-    input_text1 = input_text1 + line
 
 w, h = 5, 5
-bucket = [[None] * w for i in range(h)]
+bucket = [[int(0)] * w for i in range(h)]
 
 # fill number pad
 for i in range(3):
@@ -23,38 +20,49 @@ for i in range(3):
     bucket[3][i+1] = i + 7
 
 # stat loc
-cur_loc = [2, 2]
+cur_x = 2
+cur_y = 2
 passcode = ""
 
+last_loc = 0
+# last_val = 0
 # print bucket
-for i in range(len(input_text1)):
-    dir_letter = input_text1[i]
-    last_loc = []
-    current_val = ""
-
-    last_loc = cur_loc
-    print current_val
-    try:
-        current_val = bucket[cur_loc[0]][cur_loc[1]]
-    except IndexError:
-        current_val = 'None'
-    if current_val == 'None':
-        print "in this loop"
-        cur_loc = last_loc
-        passcode = passcode + str(bucket[cur_loc[0]][cur_loc[1]])
-    else:
+def passout(input_text):
+    for i in range(len(input_text)):
+        global cur_x
+        global cur_y
+        global passcode
+        dir_letter = input_text[i]
+        current_val = 0
+        last_val = bucket[cur_y][cur_x]
+        cur_x_it = cur_x
+        cur_y_it = cur_y
         if dir_letter == 'U':
-            last_loc = cur_loc
-            cur_loc[0] -= 1
+            cur_y -= 1
         elif dir_letter == 'D':
-            last_loc = cur_loc
-            cur_loc[0] += 1
+            cur_y += 1
         elif dir_letter == 'L':
-            last_loc = cur_loc
-            cur_loc[1] -= 1
-        else:
-            # dir_letter == "R":
-            last_loc = cur_loc
-            cur_loc[1] += 1
+            cur_x -= 1
+        elif dir_letter == 'R':
+            cur_x += 1
 
+        if bucket[cur_y][cur_x] == 0:
+            cur_x = cur_x_it
+            cur_y = cur_y_it
+            # passcode = passcode + str(bucket[cur_y][cur_x])
+            # print dir_letter, last_val, bucket[cur_y][cur_x], passcode
+
+        else:
+            continue
+            # print dir_letter, last_val, bucket[cur_y][cur_x], passcode
+    # Output last key number
+    passcode = passcode + str(bucket[cur_y][cur_x])
+    return passcode
+    return cur_x
+    return cur_y
+
+input_text1 = ""
+for line in fh:
+    passout(line)
+print "passcode"
 print passcode
