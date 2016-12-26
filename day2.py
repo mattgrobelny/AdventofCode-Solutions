@@ -15,9 +15,9 @@ bucket = [[int(0)] * w for i in range(h)]
 
 # fill number pad
 for i in range(3):
-    bucket[1][i+1] = i + 1
-    bucket[2][i+1] = i + 4
-    bucket[3][i+1] = i + 7
+    bucket[1][i + 1] = i + 1
+    bucket[2][i + 1] = i + 4
+    bucket[3][i + 1] = i + 7
 
 # stat loc
 cur_x = 2

@@ -13,8 +13,8 @@ fh = open(inputfile, 'r')
 w, h = 7, 7
 bucket = [[int(0)] * w for i in range(h)]
 
+# fill for part 2
 bucket[1][3] = 1
-# fill number pad
 for i in range(2, 5):
     bucket[2][i] = i
 for i in range(1, 6):
@@ -24,15 +24,12 @@ bucket[4][3] = "B"
 bucket[4][4] = "C"
 bucket[5][3] = "D"
 
-print bucket
-# stat loc
+# start locations
 cur_x = 2
 cur_y = 2
 passcode = ""
-
 last_loc = 0
-# last_val = 0
-# print bucket
+
 def passout(input_text):
     for i in range(len(input_text)):
         global cur_x
@@ -55,12 +52,8 @@ def passout(input_text):
         if bucket[cur_y][cur_x] == 0:
             cur_x = cur_x_it
             cur_y = cur_y_it
-            # passcode = passcode + str(bucket[cur_y][cur_x])
-            # print dir_letter, last_val, bucket[cur_y][cur_x], passcode
-
         else:
             continue
-            # print dir_letter, last_val, bucket[cur_y][cur_x], passcode
     # Output last key number
     passcode = passcode + str(bucket[cur_y][cur_x])
     return passcode
