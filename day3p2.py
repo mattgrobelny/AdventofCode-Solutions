@@ -9,6 +9,7 @@ import numpy
 inputfile = "./day3_input.txt"
 fh = open(inputfile, 'r')
 
+
 def twosides_greater(list):
     list.sort()
     # test for possible triangle
